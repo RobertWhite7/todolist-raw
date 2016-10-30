@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { granted, error in
+        
+        })
+  /*      // Override point for customization after application launch.
+        let answerOne = UNNotificationAction(identifier: "answer one", title: "LOL", options: [.foreground])
+        let answerTwo = UNNotificationAction(identifier: "answer two", title: "haha", options: [.foreground])
+        let answerThree = UNNotificationAction(identifier: "answer three", title: "Jajajaja", options: [.foreground])
+        let noteCategory = UNNotificationCategory(identifier: "noteCategory", actions: [answerOne, answerTwo, answerThree], intentIdentifiers: [], options: [])
+        UNUserNotificationCenter.current().setNotificationCategories([noteCategory]) */
         return true
     }
 

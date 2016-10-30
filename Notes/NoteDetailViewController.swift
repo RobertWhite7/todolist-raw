@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class NoteDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -22,10 +23,29 @@ class NoteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var priorityField: UITextField!
     @IBOutlet weak var prioritySelect: UISegmentedControl!
   
+  
    
     
     var empty = ""
     var priority = ["High", "Medium", "Low"]
+    
+    @IBAction func notification(_ sender: AnyObject) {
+        let content = UNMutableNotificationContent()
+        content.title = "test"
+        content.subtitle = "test2"
+        content.body = "test3"
+        content.badge = 1
+        content.categoryIdentifier = "noteCategory"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: true)
+        
+        let requestIdentifier = "test4"
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+            
+        })
+    }
+  
     var priSubmit = 0
     var category = ["Grocery", "School", "Chores", "Work", "Gaming"]
     var catSubmit = 0
@@ -40,6 +60,8 @@ class NoteDetailViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+     //   UNUserNotificationCenter.current().delegate = self
         
         //  noteTitleField.text = task.title
         noteTextField.text = task.text
@@ -214,3 +236,8 @@ extension NoteDetailViewController: UINavigationControllerDelegate, UIImagePicke
     }
     
 }
+/*extension ViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void){
+        completionHandler([.alert, .sound])
+    }
+}*/
